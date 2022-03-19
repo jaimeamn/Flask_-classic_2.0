@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-    Movimiento
+    Movimientos
 {% endblock %}
 
 {% block contenido %}
-    <p>Aqui va el cotenido</p>
-
-    {% endblock %}
+    <h1>Lista de movimientos</h1>
+    <table>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Concepto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+        </tr>
+        {% for item in movimientos %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.time }}</td>
+            <td>{{ item.concet }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.mount }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
 
