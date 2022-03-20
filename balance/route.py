@@ -1,5 +1,6 @@
 from balance import app
 from flask import render_template
+import sqlite3
 
 @app.route("/")
 def inicio():
@@ -12,4 +13,29 @@ def inicio():
             ]
 
  #ejecutar select fecha, hora, concet,
+    con = sqlite3.connect("data/movimientos.sqlite")
+    cur = con.cursor()
+
+    cur.execute(""" 
+                    SELECT fecha, hora, concepto, es_ingreso, cantidad
+                        FROM movimientos
+                     ORDER BY fecha
+                """
+    
+    )
+
+    datos =[]
+    dato = cur.fetchone()
+    while dato:
+        dato = list(dato)
+        if dato[3] ==1:
+            dato[3] = "Ingreso"
+        else:
+            dato[3] = "Gasto"
+        
+        #datos[3] = "Ingreso" if datos[3] else "Gasto"
+
+        datos.append(dato)
+        dato = cur.fetchone()
+
     return render_template("movimientos.html", movimientos=datos)

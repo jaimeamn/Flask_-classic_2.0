@@ -16,11 +16,11 @@
         </tr>
         {% for item in movimientos %}
         <tr>
-            <td>{{ item.date }}</td>
-            <td>{{ item.time }}</td>
-            <td>{{ item.concet }}</td>
-            <td>{{ item.type }}</td>
-            <td>{{ item.mount }}</td>
+            <td>{{ item[0] }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[4] }}</td>
         </tr>
         {% endfor %}
     </table>
