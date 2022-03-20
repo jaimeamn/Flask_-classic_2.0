@@ -1,41 +1,43 @@
 from balance import app
-from flask import render_template
+from flask import render_template, flash, request
+from balance.models import ProcesaDatos
 import sqlite3
+from balance.forms import MovimientosForm
+
 
 @app.route("/")
 def inicio():
 
-#octener los movimentos
-    datos = [ {"date": "fecha1", "time": "hora1", "concet": "c1", "type": "I", "mount": 1000},
-              {"date": "fecha2", "time": "hora2", "concet": "c2", "type": "I55", "mount": 5},
-              {"date": "fecha3", "time": "hora3", "concet": "c3", "type": "e22", "mount": 200},
+    data_manager = ProcesaDatos()
+    try:
+        datos = data_manager.recupera_datos()
+        return render_template("movimientos.html", movimientos=datos)
+    except sqlite3.Error as e:
+        flash("Se ha producido un error en la base de datos. Inténtelo en unos instantes.")
+        return render_template("movimientos.html", movimientos=[])
 
-            ]
 
- #ejecutar select fecha, hora, concet,
-    con = sqlite3.connect("data/movimientos.sqlite")
-    cur = con.cursor()
+@app.route("/alta", methods=['GET', 'POST'])
+def alta():
+    form = MovimientosForm()
+    if request.method == 'GET':
+        return render_template("alta.html", formulario=form)
+    else:   
+        # validar 
+        # pasando por ahora
+        # recuperar los datos de form y pasarselos al modelo para que los grabe
+         fecha = form.fecha.data.tostring()
+         hora = form.hora.data.tostring()
+         concepto = form.concepto.data
+         es_ingreso = int(form.es_ingreso.data)
+         cantidad = form.cantidad.data
 
-    cur.execute(""" 
-                    SELECT fecha, hora, concepto, es_ingreso, cantidad
-                        FROM movimientos
-                     ORDER BY fecha
-                """
-    
-    )
-
-    datos =[]
-    dato = cur.fetchone()
-    while dato:
-        dato = list(dato)
-        if dato[3] ==1:
-            dato[3] = "Ingreso"
-        else:
-            dato[3] = "Gasto"
         
-        #datos[3] = "Ingreso" if datos[3] else "Gasto"
+         query = """
+         INSERT INTO movimientos (fecha, hora, concepto, es_ingreso, cantidad)
+                           values (?, ?, ?, ?, ?)
+         """
+         
 
-        datos.append(dato)
-        dato = cur.fetchone()
-
-    return render_template("movimientos.html", movimientos=datos)
+         cur.execute(query, (fecha, hora, concepto, es_ingreso, cantidad))
+        

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block titulo%}
+    Alta de movimiento
+{% endblock %}
+
+{% block contenido %}
+    <h1>Alta de movimiento</h1>
+
+    <form action="/alta" method="post">
+        <div class="grid">
+            {{ formulario.fecha.label()}}
+            {{ formulario.fecha()}}
+        </div>
+        <div class="grid">
+            {{ formulario.hora.label()}}
+            {{ formulario.hora()}}
+        </div>
+        <div class="grid">
+            {{ formulario.concepto.label() }}
+            {{ formulario.concepto() }}
+        </div>
+        <div class="grid">
+            {{ formulario.es_ingreso.label() }}
+            {{ formulario.es_ingreso() }}
+        </div>
+        <div class="grid">
+            {{ formulario.cantidad.label() }}
+            {{ formulario.cantidad(type="number", step="0.01") }}
+        </div>
+        <div class="grid">
+            {{ formulario.aceptar() }}
+        </div>
+    </form>
+{% endblock %}

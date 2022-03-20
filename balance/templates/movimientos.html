@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block titulo %}
+{% block titulo%}
     Movimientos
 {% endblock %}
 
 {% block contenido %}
-    <h1>Lista de movimientos</h1>
+    <h1>Listado de movimientos</h1>
     <table>
         <tr>
             <th>Fecha</th>
@@ -14,15 +14,17 @@
             <th>Tipo</th>
             <th>Cantidad</th>
         </tr>
-        {% for item in movimientos %}
+        {% for movimiento in movimientos %}
         <tr>
-            <td>{{ item[0] }}</td>
-            <td>{{ item[1] }}</td>
-            <td>{{ item[2] }}</td>
-            <td>{{ item[3] }}</td>
-            <td>{{ item[4] }}</td>
+            <td>{{ movimiento[0] }}</td>
+            <td>{{ movimiento[1] }}</td>
+            <td>{{ movimiento[2] }}</td>
+            
+            <td>{% if movimiento[3] == 1 %} Ingreso {% else %} Gasto {% endif %}</td>
+            <td>{{ movimiento[4] }}</td>
         </tr>
-        {% endfor %}
+        {% endfor%}
     </table>
+
 {% endblock %}
 
