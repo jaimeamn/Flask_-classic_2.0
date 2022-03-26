@@ -6,7 +6,7 @@
 
 {% block contenido %}
     <h1>Listado de movimientos</h1>
-    <table>
+    <table class="movimientos">
         <tr>
             <th>Fecha</th>
             <th>Hora</th>
@@ -16,12 +16,16 @@
         </tr>
         {% for movimiento in movimientos %}
         <tr>
-            <td>{{ movimiento[0] }}</td>
-            <td>{{ movimiento[1] }}</td>
-            <td>{{ movimiento[2] }}</td>
+            <td>{{ movimiento.fecha }}</td>
+            <td>{{ movimiento.hora }}</td>
+            <td>{{ movimiento.concepto }}</td>
             
-            <td>{% if movimiento[3] == 1 %} Ingreso {% else %} Gasto {% endif %}</td>
-            <td>{{ movimiento[4] }}</td>
+            <td>{% if movimiento.es_ingreso == 1 %} Ingreso {% else %} Gasto {% endif %}</td>
+            <td>{{ movimiento.cantidad }}</td>
+            <td>
+                <a href="/modifica/{{ movimiento.id }}">Editar</a>
+                <a href="/borra/{{ movimiento.id }}">Borrar</a>
+            </td>            
         </tr>
         {% endfor%}
     </table>

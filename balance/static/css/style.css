@@ -1,0 +1,6 @@
+table.movimientos {
+    height: 40vh;
+    display: block;
+    overflow-y: auto;
+    
+}

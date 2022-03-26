@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block titulo%}
-    Alta de movimiento
+    Modificación de movimiento
 {% endblock %}
 
 {% block contenido %}
-    <h1>Alta de movimiento</h1>
+    <h1>Modifica movimiento</h1>
 
-    <form action="/alta" method="post">
+    <form action="/modifica/{{ id }}" method="post">
         {{ formulario.hidden_tag() }}
         <div class="grid">
             {{ formulario.fecha.label()}}

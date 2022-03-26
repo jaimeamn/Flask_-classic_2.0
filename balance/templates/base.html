@@ -3,7 +3,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/pico.css">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Balance | {% block titulo %}{% endblock %}</title>
 </head>
 <body>
@@ -12,6 +13,12 @@
             Registro de ingresos gastos
         </div>
     </header>
+    <nav class="container">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/alta">Nuevo</a></li>
+        </ul>
+    </nav>
     {% with mensajes = get_flashed_messages() %}
         {% if mensajes %}
         <section class="errores container">

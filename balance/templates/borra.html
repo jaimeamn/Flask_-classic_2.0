@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block titulo%}
-    Alta de movimiento
+    Modificación de movimiento
 {% endblock %}
 
 {% block contenido %}
-    <h1>Alta de movimiento</h1>
+    <h1>Modifica movimiento</h1>
 
-    <form action="/alta" method="post">
+    <form action="/modifica/{{ id }}" method="post">
         {{ formulario.hidden_tag() }}
         <div class="grid">
             {{ formulario.fecha.label()}}
-            {{ formulario.fecha()}}
+            {{ formulario.fecha.data}}
         </div>
         {% if formulario.fecha.errors %}
         {% for error in formulario.fecha.errors %}
@@ -20,7 +20,7 @@
         {% endif %}
         <div class="grid">
             {{ formulario.hora.label()}}
-            {{ formulario.hora()}}
+            {{ formulario.hora.data}}
         </div>
         {% if formulario.hora.errors %}
         {% for error in formulario.hora.errors %}
@@ -51,6 +51,7 @@
         {% endif %}
 <div class="grid">
             {{ formulario.aceptar() }}
+            <a href="/" role="button">Cancelar</a>
         </div>
     </form>
 {% endblock %}
